@@ -1270,6 +1270,34 @@ select {
   background: var(--text-muted);
 }
 
+/* ── Latest Read Chapter Badge ──────────────────────────── */
+.series-card-latest-badge {
+  position: absolute;
+  bottom: 28px; /* sit just above the progress bar */
+  left: 6px;
+  background: rgba(20, 20, 30, 0.78);
+  color: #a8e6cf;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  z-index: 20;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(168, 230, 207, 0.3);
+  font-family: var(--font-body);
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+[data-theme="dark"] .series-card-latest-badge {
+  background: rgba(168, 230, 207, 0.18);
+  color: #a8e6cf;
+  border-color: rgba(168, 230, 207, 0.4);
+}
+
 /* ── Continue Reading ────────────────────────────────────── */
 .series-card-continue-badge {
   position: absolute;

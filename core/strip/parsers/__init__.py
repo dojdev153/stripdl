@@ -2,9 +2,11 @@
 # Parser registry – automatically maps URL patterns to the correct parser class.
 
 from strip.parsers.webtoons import WebtoonsParser
+from strip.parsers.comix import ComixParser
 
 PARSERS = [
     WebtoonsParser,
+    ComixParser,
 ]
 
 

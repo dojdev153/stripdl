@@ -23,6 +23,9 @@ export default function SeriesCard({
 
   const coverSrc = toFileUrl(series.coverPath);
 
+  // Badge for latest chapter read (if available)
+  const latestReadChapter = series.lastRead?.chapterNumber;
+
   async function deleteSeries() {
     const confirmed = await confirm(
       "Delete series",
@@ -109,9 +112,20 @@ export default function SeriesCard({
         ) : (
           <div className="series-cover-placeholder">◈</div>
         )}
+
+        {/* Chapter count badge */}
         <span className="series-card-badge">
           {series.chapters?.length ?? 0} ch
         </span>
+
+        {/* Latest read chapter badge */}
+        {latestReadChapter != null && (
+          <div className="series-card-latest-badge">
+            Latest: Ch.{latestReadChapter}
+          </div>
+        )}
+
+        {/* Continue reading button */}
         {!selectMode && series.lastRead && (
           <div
             className="series-card-continue-badge"
@@ -124,6 +138,7 @@ export default function SeriesCard({
             Continue
           </div>
         )}
+
         {series.progress > 0 && (
           <div className="series-card-progress">
             <div
