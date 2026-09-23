@@ -28,6 +28,7 @@ strip-data/
 .DS_Store
 Thumbs.db
 *.log
-.env
 
 **/resources/
+config.bat
+node_modules
