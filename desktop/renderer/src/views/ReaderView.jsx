@@ -73,6 +73,9 @@ export default function ReaderView({
   function zoomOut() { setZoom((z) => Math.max(ZOOM_MIN, +(z - ZOOM_STEP).toFixed(2))); }
   function zoomReset() { setZoom(1); }
 
+  // Tracks the zoom level from the previous render so we can compensate scrollTop.
+  const prevZoomRef = useRef(1);
+
   const containerRef = useRef(null);
   const pageRefs = useRef([]);
   const observerRef = useRef(null);
@@ -309,6 +312,18 @@ export default function ReaderView({
     container.addEventListener("wheel", onWheel, { passive: false });
     return () => container.removeEventListener("wheel", onWheel);
   }, [ZOOM_MIN, ZOOM_MAX]);
+
+  // Scroll-anchor on zoom: when zoom changes, compensate scrollTop so the
+  // content currently at the top of the viewport stays there.
+  // transform:scale() doesn't affect layout, so without this the page appears
+  // to jump because scrollTop stays fixed while the content shifts visually.
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const ratio = zoom / prevZoomRef.current;
+    container.scrollTop = container.scrollTop * ratio;
+    prevZoomRef.current = zoom;
+  }, [zoom]);
 
   useEffect(() => {
     function onKeydown(e) {
