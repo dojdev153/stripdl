@@ -33,6 +33,12 @@ class ReleaseWorkflowTests(unittest.TestCase):
             publish_job.index("Check out repository"),
             publish_job.index("Download all artifacts"),
         )
+
+    def test_artifact_upload_excludes_electron_unpack_directories(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        for extension in ("*.dmg", "*.exe", "*.AppImage", "*.deb"):
+            self.assertIn(f"desktop/release/{extension}", workflow)
+        self.assertNotIn("desktop/release/*\n", workflow)
         for label in (
             "windows-latest",
             "windows-11-arm",

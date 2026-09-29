@@ -10,14 +10,14 @@
   "main": "out/main/index.js",
   "scripts": {
     "test": "node --test",
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
+    "dev": "node init && electron-vite dev",
+    "build": "node init && electron-vite build",
     "preview": "electron-vite preview",
-    "start": "electron-vite preview",
-    "build-cli": "cd .. && python build_cli.py",
-    "build:win": "npm run build-cli && electron-vite build && electron-builder --win",
-    "build:mac": "npm run build-cli && electron-vite build && electron-builder --mac",
-    "build:linux": "npm run build-cli && electron-vite build && electron-builder --linux",
+    "start": "node init && electron-vite preview",
+    "build-cli": "node init && cd .. && python build_cli.py",
+    "build:win": "node init && npm run build-cli && electron-vite build && electron-builder --win",
+    "build:mac": "node init && npm run build-cli && electron-vite build && electron-builder --mac",
+    "build:linux": "node init && npm run build-cli && electron-vite build && electron-builder --linux",
     "dist": "npm run build-cli && electron-vite build && electron-builder"
   },
   "build": {
@@ -52,7 +52,10 @@
       "artifactName": "Strip-${version}-windows-${arch}.${ext}"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "icon": "assets/icons",
       "category": "Graphics",
       "artifactName": "Strip-${version}-linux-${arch}.${ext}",

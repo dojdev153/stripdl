@@ -186,7 +186,10 @@ jobs:
           if-no-files-found: error
           path: |
             release-cli/*
-            desktop/release/*
+            desktop/release/*.dmg
+            desktop/release/*.exe
+            desktop/release/*.AppImage
+            desktop/release/*.deb
 
   publish:
     name: Publish GitHub Release
